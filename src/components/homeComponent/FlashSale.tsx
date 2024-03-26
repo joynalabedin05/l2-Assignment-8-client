@@ -2,13 +2,14 @@ import { CirclePlus } from 'lucide-react';
 import Image from "next/image";
 import grocery1 from "../../assets/grocery1.jpg";
 import { ChevronRight } from "lucide-react";
+import Link from 'next/link';
 
 const FlashSale = () => {
     return (
         <div className="max-w-[1200px] mx-auto my-10">
             <div className="flex justify-between">
                 <h1 className="text-3xl font-bold">Flash Sale</h1>
-                <button className="btn btn-neutral rounded-3xl">View All <ChevronRight/></button>
+                <button className="btn btn-neutral rounded-3xl"><Link href='/flash-sale'>View All</Link> <ChevronRight/></button>
             </div>
             <div className="grid grid-cols-4 gap-1 mt-4">
             <div className="card  bg-base-100 shadow-xl relative mx-4">
