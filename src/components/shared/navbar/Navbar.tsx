@@ -6,9 +6,11 @@ import Logo from "../../../assets/logo.png";
 const Navbar = () => {
     const navItems = <>      
         <li><Link href='/'>Home</Link></li>      
-        <li><Link href='/'>Home</Link></li>      
+        <li><Link href='/'>Categories</Link></li>      
+        <li><Link href='/'>Products</Link></li>      
         <li><Link href='/flash-sale'>Flash Sale</Link></li>      
-        <li><Link href='/'>Home</Link></li>            
+        <li><Link href='/'>About Us</Link></li>            
+        <li><Link href='/'>Contact Us</Link></li>            
     </>
 
     return (
@@ -34,9 +36,9 @@ const Navbar = () => {
                 {navItems}
                 </ul>
                 </div>
-                <div className="navbar-end">
-                <a className="btn">Button</a>
-                </div>
+                {/* <div className="navbar-end">
+                <a className="">Button</a>
+                </div> */}
                 </div>
             </div>
     );

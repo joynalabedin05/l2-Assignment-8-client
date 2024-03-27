@@ -1,40 +1,46 @@
 import { ChevronRight, CirclePlus } from "lucide-react";
 import Image from "next/image";
-import grocery2 from "../../assets/grocery2.jpg";
+import { Products } from "./FlashSale";
+import Link from 'next/link';
 
 
-const MostPopularProducts = () => {
+const MostPopularProducts = async () => {
+    const res = await fetch("http://localhost:5000/api/v1/all-popular-products", {
+        next: {
+            revalidate: 30,
+        }
+    });
+    const data = await res.json();
+    // console.log(data);
     return (
-        <div className="max-w-[1200px] mx-auto my-28">
-            <div className="flex justify-between"> 
-                <div className="w-1/2">
-                    <h1 className="text-3xl font-bold mb-2">MostPopularProducts</h1>
-                    <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, laborum a? Numquam molestiae velit magni  beatae accusamus a!</p>
-                </div>
-                <button className="btn btn-neutral rounded-3xl">View All <ChevronRight/></button>
-            </div>
-            <div className="grid grid-cols-4 gap-4 mt-10">
-            <div className="card  bg-base-100 shadow-xl relative mx-4">
-                <h1 className="absolute bg-slate-300 p-2 top-3 left-5 rounded-2xl">-13%</h1>
-                <figure><Image src={grocery2} alt="carasol" className="w-full h-[300px]  rounded-md"/></figure>
-                <div className="card-body">
-                    <h2 className="card-title">
-                    Grocery name
-                    </h2> 
-                    <div className="flex justify-between mt-1">
-                        <div className="flex w-1/2">
-                        <p className="bg-gray-300 line-through">$230.00 </p>
-                        <span className="bg-white">$200.00</span> 
-                        </div>
-                        <div>
-                           <button> <CirclePlus></CirclePlus></button>
-                        </div>
+        <div className="max-w-[1200px] mx-auto my-10">
+        <div className="flex justify-between">
+            <h1 className="text-3xl font-bold">Flash Sale</h1>
+            <button className="btn btn-neutral rounded-3xl"><Link href='/grocery'>View All</Link> <ChevronRight/></button>
+        </div>
+        <div className="grid grid-cols-4 gap-y-8 mt-8">
+        {
+            data?.slice(0-6).map((item: Products)=><div key={item._id} className="card  bg-base-100 shadow-xl relative mx-4">
+            <h1 className="absolute bg-slate-300 p-2 top-3 left-5 rounded-2xl">-13%</h1>
+            <figure><Image src={item.image} height={200} width={250} alt="carasol" className="w-full h-[300px]  rounded-md"/></figure>
+            <div className="card-body">
+                <h2 className="card-title">
+                {item.title}
+                </h2> 
+                <div className="flex justify-between mt-1">
+                    <div className="flex w-1/2">
+                    <p className="bg-gray-300 line-through">${item.price} </p>
+                    <span className="bg-white">${(item.price-3).toFixed(2)}</span> 
+                    </div>
+                    <div>
+                       <button> <CirclePlus></CirclePlus></button>
+                    </div>
 
-                     </div>            
-                </div>
+                 </div>            
             </div>
-            </div>
-            
+        </div>)
+        }
+        </div>
         </div>
     );
 };
